@@ -28,7 +28,7 @@ private:
     float maxSpeed = 350.0f;
     float thrustPower = 250.0f;
     float rotationSpeed = 250.0f;
-    glm::vec2 velocity;
+    glm::vec2 velocity= glm::vec2(0,0);
     glm::vec2 winSize;
     glm::vec2 directionL;
 

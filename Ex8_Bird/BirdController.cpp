@@ -18,8 +18,10 @@ BirdController::BirdController(GameObject *gameObject) : Component(gameObject) {
 bool BirdController::onKey(SDL_Event &event) {
     if (event.type == SDL_KEYDOWN){
         std::cout << "some key pressed" << std::endl;
+        m_addImpulse = true;
     } else if (event.type == SDL_KEYUP){
         std::cout << "some key released" << std::endl;
+        m_addImpulse = false;
     }
     return false;
 }
@@ -31,5 +33,6 @@ void BirdController::onCollisionStart(PhysicsComponent *comp) {
 void BirdController::onCollisionEnd(PhysicsComponent *comp) {
 
 }
+
 
 

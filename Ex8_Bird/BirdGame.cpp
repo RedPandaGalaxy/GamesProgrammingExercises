@@ -214,11 +214,24 @@ void BirdGame::updatePhysics() {
         auto gameObject = phys.second->getGameObject();
         gameObject->setPosition(glm::vec2(position.x*physicsScale, position.y*physicsScale));
         gameObject->setRotation(angle);
+        if (gameObject->name == "Bird") {
+            phys.second->setLinearVelocity((glm::vec2(1,0)));
+
+            //when space is pressed
+            std::shared_ptr<BirdController> birdC = gameObject->getComponent<BirdController>();
+            if (birdC.get()->getAddImpulse())
+            {
+                glm::vec2 impulse{ 0, 0.13 };
+                phys.second->addImpulse(impulse);
+            }
+           
+        }
     }
 }
 
 void BirdGame::initPhysics() {
-    float gravity = -9.8; // 9.8 m/s2
+    //float gravity = -9.8; // 9.8 m/s2
+    float gravity = -50;
     delete world;
     world = new b2World(b2Vec2(0,gravity));
     world->SetContactListener(this);

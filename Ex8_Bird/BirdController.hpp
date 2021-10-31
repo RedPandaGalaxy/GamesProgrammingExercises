@@ -11,4 +11,11 @@ public:
     void onCollisionStart(PhysicsComponent *comp) override;
 
     void onCollisionEnd(PhysicsComponent *comp) override;
+
+    bool getAddImpulse() {
+        return m_addImpulse;
+    }
+
+private:
+    bool m_addImpulse = false;
 };

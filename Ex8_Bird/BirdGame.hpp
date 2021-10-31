@@ -60,6 +60,7 @@ private:
     bool doDebugDraw = false;
     GameState gameState = GameState::Ready;
     friend class PhysicsComponent;
+    b2Fixture* player;
 };
 
 
