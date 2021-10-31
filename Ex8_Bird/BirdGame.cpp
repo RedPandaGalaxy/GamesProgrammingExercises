@@ -88,11 +88,15 @@ void BirdGame::init() {
         auto obj = createGameObject();
         obj->name = "Wall bottom";
         auto so = obj->addComponent<SpriteComponent>();
+        auto phys = obj->addComponent<PhysicsComponent>();
 
         float xOffset = xVariation * cos(i*curve*0.2f);
-        glm::vec2 pos{i*300+xOffset,spriteBottom.getSpriteSize().y/2 + sin(i*curve)*heighVariation};
+        //glm::vec2 pos{i*300+xOffset,spriteBottom.getSpriteSize().y/2 + sin(i*curve)*heighVariation};
+        glm::vec2 pos{ i * 300 + xOffset,spriteBottom.getSpriteSize().y / 2 + sin(i * curve) * heighVariation };
         obj->setPosition(pos);
         so->setSprite(spriteBottom);
+
+        phys->initBox(b2_staticBody, glm::vec2(0.28, 1.6), { obj->getPosition().x / physicsScale, obj->getPosition().y / physicsScale }, 1);
 
         glm::vec2 s { spriteBottom.getSpriteSize().x * spriteBottom.getScale().x/2, spriteBottom.getSpriteSize().y * spriteBottom.getScale().y/2};
     }
@@ -102,10 +106,12 @@ void BirdGame::init() {
         auto obj = createGameObject();
         obj->name = "Wall top";
         auto so = obj->addComponent<SpriteComponent>();
+        auto phys = obj->addComponent<PhysicsComponent>();
 
         float xOffset = xVariation * cos(i*curve*0.2f);
         glm::vec2 pos{ i*300+xOffset, windowSize.y-spriteTop.getSpriteSize().y/2 + sin(i*curve)*heighVariation};
         obj->setPosition(pos);
+        phys->initBox(b2_staticBody, glm::vec2(0.28, 1.6), { obj->getPosition().x / physicsScale, obj->getPosition().y / physicsScale }, 1);
         glm::vec2 s { spriteTop.getSpriteSize().x * spriteTop.getScale().x/2, spriteTop.getSpriteSize().y * spriteTop.getScale().y/2};
         so->setSprite(spriteTop);
     }
@@ -224,6 +230,9 @@ void BirdGame::updatePhysics() {
                 glm::vec2 impulse{ 0, 0.13 };
                 phys.second->addImpulse(impulse);
             }
+            if (birdC.get()->getResetGame()) {
+                BirdGame::setGameState(GameState::GameOver);
+            }
            
         }
     }
@@ -231,7 +240,7 @@ void BirdGame::updatePhysics() {
 
 void BirdGame::initPhysics() {
     //float gravity = -9.8; // 9.8 m/s2
-    float gravity = -50;
+    float gravity = -100;
     delete world;
     world = new b2World(b2Vec2(0,gravity));
     world->SetContactListener(this);

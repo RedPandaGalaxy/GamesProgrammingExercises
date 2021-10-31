@@ -12,10 +12,10 @@ public:
 
     void onCollisionEnd(PhysicsComponent *comp) override;
 
-    bool getAddImpulse() {
-        return m_addImpulse;
-    }
+    bool getAddImpulse();
+    bool getResetGame();
 
 private:
     bool m_addImpulse = false;
+    bool m_resetGame = false;
 };

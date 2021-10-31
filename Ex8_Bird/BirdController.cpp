@@ -24,14 +24,24 @@ bool BirdController::onKey(SDL_Event &event) {
         m_addImpulse = false;
     }
     return false;
+
+
 }
 
 void BirdController::onCollisionStart(PhysicsComponent *comp) {
     std::cout << "bird collided with something" << std::endl;
+    m_resetGame = true;
 }
 
 void BirdController::onCollisionEnd(PhysicsComponent *comp) {
 
+}
+
+bool BirdController::getAddImpulse() {
+    return m_addImpulse;
+}
+bool BirdController::getResetGame() {
+    return m_resetGame;
 }
 
 
