@@ -49,6 +49,7 @@ add_subdirectory(Ex5_Pong)
 add_subdirectory(Ex6-Assignment2_Wolf)
 add_subdirectory(Ex6_Wolf)
 add_subdirectory(Ex8_Bird)
+add_subdirectory(Ex10_Platformer)
 
 IF (USE_BULLET)
 	add_subdirectory(3D_Scenegraph)
