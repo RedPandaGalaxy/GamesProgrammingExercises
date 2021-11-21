@@ -16,7 +16,7 @@ ScriptComponent::ScriptComponent(GameObject *gameObject) : Component(gameObject)
     lua.open_libraries(sol::lib::base, sol::lib::string, sol::lib::package, sol::lib::math);
 
     //Incomplete implementation of GameObject
-    lua.new_usertype<GameObject>( "GameObject", // the name of the class, as you want it to be used in lua
+    lua.new_usertype<GameObject>("GameObject", // the name of the class, as you want it to be used in lua
             // List the member functions you wish to bind:
             // "name_of_item", &class_name::function_or_variable
                 //variables
@@ -24,8 +24,11 @@ ScriptComponent::ScriptComponent(GameObject *gameObject) : Component(gameObject)
 
                 //functions
                 "setPosition", &GameObject::setPosition,
-                "getPosition", &GameObject::getPosition
+                "getPosition", &GameObject::getPosition,
+
                 //TODO: assignment - implement the variables and functions you need from GameObject.
+                "getRotation", & GameObject::getRotation,
+                "setRotation", & GameObject::setRotation
     );
 
     auto vec2_type = lua.new_usertype<glm::vec2> ("vec2",
