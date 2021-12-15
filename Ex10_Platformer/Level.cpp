@@ -22,28 +22,28 @@ std::shared_ptr<Level> Level::createDefaultLevel(PlatformerGame* game, std::shar
 
 void Level::generateLevel() {
     // start wall
-    addWall(-1, 0, 2, 10);
-
+    addWall(-8, 0, 2, 20);
+    addWall(29, 0, 2, 20);
     // floor
-    addPlatform(0, 0, 2, 100, false);
+    addPlatform(-10, 0, 2, 100, false);
     // ceil
-    addPlatform(0, 20, 2, 100, false);
+    addPlatform(-10, 20, 2, 100, false);
 
-    auto movingPlatform = addPlatform(10, 3, 2, 5, true);
-    auto movingPlatformComponent = movingPlatform->getGameObject()->addComponent<MovingPlatformComponent>();
-    movingPlatformComponent->setMovementStart({10,3});
-    movingPlatformComponent->setMovementEnd({10,5});
+ //   auto movingPlatform = addPlatform(10, 3, 2, 5, true);
+  //  auto movingPlatformComponent = movingPlatform->getGameObject()->addComponent<MovingPlatformComponent>();
+  //  movingPlatformComponent->setMovementStart({10,3});
+  //  movingPlatformComponent->setMovementEnd({10,5});
 
     // add some more platforms
-    addPlatform(15, 7, 2, 5, true);
-    addPlatform(20, 3, 2, 5, true);
-    addPlatform(25, 7, 2, 5, true);
-    addPlatform(30, 10, 2, 5, true);
-    addPlatform(35, 7, 2, 5, true);
-    addPlatform(40, 3, 2, 5, true);
+    //addPlatform(15, 7, 2, 5, true);
+    //addPlatform(20, 3, 2, 5, true);
+    //addPlatform(25, 7, 2, 5, true);
+    //addPlatform(30, 10, 2, 5, true);
+    //addPlatform(35, 7, 2, 5, true);
+  //  addPlatform(40, 3, 2, 5, true);
 
     // end wall
-    addWall(100, 0, 2, 10);
+   // addWall(100, 0, 2, 10);
 }
 
 std::shared_ptr<PlatformComponent> Level::addPlatform(int x, int y, int startSpriteId, int length, bool kinematic) {

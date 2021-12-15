@@ -18,11 +18,12 @@ public:
 
     void onCollisionStart(PhysicsComponent* comp) override;
     void onCollisionEnd(PhysicsComponent* comp) override;
-
+    void update(float deltaTime) override;
     void Bubble::SpawnBubble(BubbleSize size, glm::vec2 pos);
 
 private:
     BubbleSize size;
+    float density;
     std::shared_ptr<PhysicsComponent> bubblePhysics;
     std::shared_ptr<SpriteComponent> spriteComponent;
     float radius;

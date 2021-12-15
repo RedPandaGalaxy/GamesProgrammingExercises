@@ -15,7 +15,9 @@
 
 
 Bubble::Bubble(GameObject *gameObject) : Component(gameObject) {
+
     bubblePhysics = gameObject->addComponent<PhysicsComponent>();
+    density = 50;
 
     auto physicsScale = PlatformerGame::instance->physicsScale;
     radius = 10 / physicsScale;
@@ -23,8 +25,12 @@ Bubble::Bubble(GameObject *gameObject) : Component(gameObject) {
         b2_dynamicBody, 10 / physicsScale, 
         { gameObject->getPosition().x / physicsScale,
           gameObject->getPosition().y / physicsScale }, 
-        1);
+            density
+    );
     spriteComponent = gameObject->getComponent<SpriteComponent>();
+    bubblePhysics->setLinearVelocity((glm::vec2(0.2, 0)));
+    bubblePhysics->getFixture()->SetRestitution(1);
+    bubblePhysics->fixRotation();
 }
 
 
@@ -44,6 +50,9 @@ void Bubble::SpawnBubble(BubbleSize size, glm::vec2 pos) {
     //    gameObjects.push_back(std::make_shared<Asteroid>(asteroidSmallSprite, this, Asteroid::S, pos));
     //}
 }
+void Bubble::update(float deltaTime) {
+}
+
 
 bool Bubble::onKey(SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {
@@ -54,6 +63,7 @@ bool Bubble::onKey(SDL_Event& event) {
 
 void Bubble::onCollisionStart(PhysicsComponent* comp) {
     std::cout << "Bubble Collided with something" << std::endl;
+    //bubblePhysics->addImpulse({ 0,density / 3 });
 }
 
 void Bubble::onCollisionEnd(PhysicsComponent* comp) {
