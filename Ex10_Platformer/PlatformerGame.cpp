@@ -88,6 +88,7 @@ void PlatformerGame::initLevel() {
     bubbleSpriteComponent->setSprite(bubbleSprite);
     bubbleObj->setPosition(glm::vec2(100, 200));
     auto bubbleBubbleComponent = bubbleObj->addComponent<Bubble>();
+    bubbleBubbleComponent->SetBubbleSize(BubbleSize::XS);
 
     //ADD 2nd BUBBLE
     auto bubbleObj2 = createGameObject();
@@ -97,6 +98,17 @@ void PlatformerGame::initLevel() {
     bubbleSpriteComponent2->setSprite(bubbleSprite2);
     bubbleObj2->setPosition(glm::vec2(150, 300));
     auto bubbleBubbleComponent2 = bubbleObj2->addComponent<Bubble>();
+    bubbleBubbleComponent2->SetBubbleSize(BubbleSize::S);
+
+    //ADD 2nd BUBBLE
+    auto bubbleObj3 = createGameObject();
+    bubbleObj3->name = "Bubble";
+    auto bubbleSpriteComponent3 = bubbleObj3->addComponent<SpriteComponent>();
+    auto bubbleSprite3 = spriteAtlas->get("111.png");
+    bubbleSpriteComponent3->setSprite(bubbleSprite3);
+    bubbleObj3->setPosition(glm::vec2(180, 300));
+    auto bubbleBubbleComponent3 = bubbleObj3->addComponent<Bubble>();
+    bubbleBubbleComponent3->SetBubbleSize(BubbleSize::M);
 
     auto birdObj = createGameObject();
     birdObj->name = "Bird";
@@ -300,90 +312,3 @@ void PlatformerGame::handleContact(b2Contact *contact, bool begin) {
         }
     }
 }
-
-/* 
-
-    auto birdObj = createGameObject();
-    birdObj->name = "Bird";
-    auto spriteComponent = birdObj->addComponent<SpriteComponent>();
-    auto bird = spriteAtlas->get("433.png");
-    bird.setFlip({true,false});
-    spriteComponent->setSprite(bird);
-    birdMovement = birdObj->addComponent<BirdMovementComponent>().get();
-
-    birdMovement->setPositions({
-                                       {-50,350},
-                                       {0,300},
-                                       {50,350},
-                                       {100,400},
-                                       {150,300},
-                                       {200,200},
-                                       {250,300},
-                                       {300,400},
-                                       {350,350},
-                                       {400,300},
-                                       {450,350},
-                                       {500,400},
-                                       {550,350},
-                                       {600,300},
-                                       {650,350},
-                                       {700,400},
-                                       {750,350},
-                                       {800,300},
-                                       {850,350},
-                                       {900,400},
-                                       {950,350},
-                                       {1000,300},
-                                       {1050,350},
-                                       {1100,400},
-                                       {1150,350},
-                                       {1200,300},
-                                       {1250,350},
-                               });
-
-    auto spiralBirdObj = createGameObject();
-    spiralBirdObj->name = "spiralBird";
-    auto sBirdSpriteComponent = spiralBirdObj->addComponent<SpriteComponent>();
-    auto sBird = spriteAtlas->get("433.png");
-    sBird.setFlip({true,false});
-    sBirdSpriteComponent->setSprite(sBird);
-    spiralBirdObj->setPosition(glm::vec2(100, 200));
-
-    //TODO: assignment - Uncomment and add this ScriptComponent for exercise 10-4 and extend the ScriptComponent with the relevant functions from GameObject.
-     //REMOVE THIS BLOCK COMMENT
-    auto script = spiralBirdObj->addComponent<ScriptComponent>();
-
-     // TODO: assignment - update radius continuously in the lua script so that the bird flies in a spiral with radius between [10, 100]
-    std::string luaScript =
-            "radius = 100\n"
-            "step = 0.5 \n"
-            "-- Function evaluated for each update\n"
-            "function update (time) \n"
-            "   gameobj = getGameObject() \n"
-            "   rot = gameobj:getRotation()\n"
-            "   rot = (rot + 250 * time ) % (360) \n"
-            "   gameobj:setRotation(rot) \n"
-            "   pos = { x = 300, y = 400} \n"
-            "   radius = radius - step \n"
-            "   if (radius == 10 or radius == 100) then \n"
-            "       step = -step \n"
-            "   end \n"
-            "   pos.x = pos.x + math.sin(math.pi/180 * rot) * radius \n"
-            "   pos.y = pos.y - math.cos(math.pi/180 * rot) * radius \n"
-            "   gameobj:setPosition(vec2.new(pos.x, pos.y)) \n"
-            "end\n"
-            "-- Key down handler example \n"
-            "function onKeyDown (key) \n"
-            "   --NOTE: this simple char comparison does not handle special keys.\n"
-            "   --Keycode values can be found in https://wiki.libsdl.org/SDLKeycodeLookup here using ('-') which is SDLK_MINUS = 45\n"
-            "   if(key.keysym.sym == 45) then \n"
-            "       print(\"pressed!!!\")\n"
-            "       return true \n"
-            "   end\n"
-            "   --result was not consumed.\n"
-            "   return false \n"
-            "end\n";
-
-    script->init(luaScript);
-
-*/

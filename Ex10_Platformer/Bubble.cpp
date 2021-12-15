@@ -16,21 +16,7 @@
 
 Bubble::Bubble(GameObject *gameObject) : Component(gameObject) {
 
-    bubblePhysics = gameObject->addComponent<PhysicsComponent>();
-    density = 50;
 
-    auto physicsScale = PlatformerGame::instance->physicsScale;
-    radius = 10 / physicsScale;
-    bubblePhysics->initCircle(
-        b2_dynamicBody, 10 / physicsScale, 
-        { gameObject->getPosition().x / physicsScale,
-          gameObject->getPosition().y / physicsScale }, 
-            density
-    );
-    spriteComponent = gameObject->getComponent<SpriteComponent>();
-    bubblePhysics->setLinearVelocity((glm::vec2(0.2, 0)));
-    bubblePhysics->getFixture()->SetRestitution(1);
-    bubblePhysics->fixRotation();
 }
 
 
@@ -50,6 +36,71 @@ void Bubble::SpawnBubble(BubbleSize size, glm::vec2 pos) {
     //    gameObjects.push_back(std::make_shared<Asteroid>(asteroidSmallSprite, this, Asteroid::S, pos));
     //}
 }
+
+void Bubble::SetBubbleSize(BubbleSize s) {
+    bubblePhysics = gameObject->addComponent<PhysicsComponent>();
+    size = s;
+    density = 50;
+    auto physicsScale = PlatformerGame::instance->physicsScale;
+
+
+
+    switch (size)
+    {
+    case BubbleSize::XS:
+        bubblePhysics->initCircle(
+            b2_dynamicBody, 10 / physicsScale,
+            { gameObject->getPosition().x / physicsScale,
+              gameObject->getPosition().y / physicsScale },
+            density
+            );
+        bubblePhysics->setLinearVelocity((glm::vec2(6, 0)));
+        break;
+    case BubbleSize::S:
+        bubblePhysics->initCircle(
+            b2_dynamicBody, 15 / physicsScale,
+            { gameObject->getPosition().x / physicsScale,
+              gameObject->getPosition().y / physicsScale },
+            density
+        );
+        bubblePhysics->setLinearVelocity((glm::vec2(4, 0)));
+        break;
+    case BubbleSize::M:
+        bubblePhysics->initCircle(
+            b2_dynamicBody, 20 / physicsScale,
+            { gameObject->getPosition().x / physicsScale,
+              gameObject->getPosition().y / physicsScale },
+            density
+        );
+        bubblePhysics->setLinearVelocity((glm::vec2(2, 0)));
+        break;
+    case BubbleSize::L:
+        bubblePhysics->initCircle(
+            b2_dynamicBody, 25 / physicsScale,
+            { gameObject->getPosition().x / physicsScale,
+              gameObject->getPosition().y / physicsScale },
+            density
+        );
+        break;
+    case BubbleSize::XL:
+        bubblePhysics->initCircle(
+            b2_dynamicBody, 30 / physicsScale,
+            { gameObject->getPosition().x / physicsScale,
+              gameObject->getPosition().y / physicsScale },
+            density
+        );
+        break;
+    default:
+        break;
+    }
+
+
+    spriteComponent = gameObject->getComponent<SpriteComponent>();
+
+    bubblePhysics->fixRotation();
+    bubblePhysics->getFixture()->SetRestitution(1);
+}
+
 void Bubble::update(float deltaTime) {
 }
 
@@ -63,7 +114,6 @@ bool Bubble::onKey(SDL_Event& event) {
 
 void Bubble::onCollisionStart(PhysicsComponent* comp) {
     std::cout << "Bubble Collided with something" << std::endl;
-    //bubblePhysics->addImpulse({ 0,density / 3 });
 }
 
 void Bubble::onCollisionEnd(PhysicsComponent* comp) {

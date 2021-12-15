@@ -20,6 +20,7 @@ public:
     void onCollisionEnd(PhysicsComponent* comp) override;
     void update(float deltaTime) override;
     void Bubble::SpawnBubble(BubbleSize size, glm::vec2 pos);
+    void Bubble::SetBubbleSize(BubbleSize s);
 
 private:
     BubbleSize size;
@@ -29,6 +30,7 @@ private:
     float radius;
     bool left = false;
     bool right = false;
+    std::string tag = "Bubble";
 
 
 };
