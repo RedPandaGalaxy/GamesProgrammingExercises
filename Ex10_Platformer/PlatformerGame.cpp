@@ -9,6 +9,7 @@
 #include "CharacterController.hpp"
 #include "BirdMovementComponent.hpp"
 #include "ScriptComponent.hpp"
+#include "Bubble.hpp"
 
 using namespace std;
 using namespace sre;
@@ -78,6 +79,15 @@ void PlatformerGame::initLevel() {
     camObj->setPosition(windowSize*0.5f);
     camera->setFollowObject(player,{200,windowSize.y*0.5f});
 
+
+    //ADD BUBBLE
+    auto bubbleObj = createGameObject();
+    bubbleObj->name = "Bubble";
+    auto bubbleSpriteComponent = bubbleObj->addComponent<SpriteComponent>();
+    auto bubbleSprite = spriteAtlas->get("433.png");
+    bubbleSpriteComponent->setSprite(bubbleSprite);
+    bubbleObj->setPosition(glm::vec2(100, 200));
+    auto bubbleBubbleComponent = bubbleObj->addComponent<Bubble>();
 
     auto birdObj = createGameObject();
     birdObj->name = "Bird";

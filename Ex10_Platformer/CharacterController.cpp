@@ -128,6 +128,16 @@ void CharacterController::updateSprite(float deltaTime) {
         }
     }
     else {
+        /*
+        --------------------------------------------------------------------------------------------------------------
+        Here, I know it is not the most correct way to do it, but I didn't manage to implement the other solution T-T...
+        Which was basically inspired by previous exercise - The Bird SpriteAnimationComponent
+        I tried to set the animation time to 0.3f and then iterate through vector corrseponding to specigic animation sequence (like walk or jump)
+        (as in Bird exercise)
+
+        What would be the best way to solve this task?
+        -----------------------------------------------------------------------------------------------------------------
+        */
         time = fmod(time, animTime_jump);
         //std::cout << time << std::endl;
         if (time < animTime_jump / 3) {

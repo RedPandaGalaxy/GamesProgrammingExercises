@@ -66,5 +66,6 @@ private:
     friend class Level;
     friend class CharacterController;
     friend class PlatformComponent;
+    friend class Bubble;
 };
 
